@@ -4,9 +4,11 @@ $(document).ready(function(){
 
   $('.pageheader').css('height',myHeight+30);
   $('.downward').css('top',myHeight-50);
+  $('.downward').velocity('transition.slideUpIn',{delay:2500});
   $(".navbar-toggle").on("click", function () {
       $(this).toggleClass("active");
   });
+
 
 
   $(window).scroll(function(){
@@ -27,7 +29,14 @@ $(document).ready(function(){
     translateY:'10px'
   },{loop:true}).velocity('reverse');
 
+  $('.downward2').velocity({
+    translateY:'10px'
+  },{loop:true}).velocity('reverse');
+
   $('.downward').click(function(){
     $('.mine').velocity("scroll", { duration: 500, easing: "ease-in-out" });
+  });
+  $('.downward2').click(function(){
+    $('.life').velocity("scroll", { duration: 500, easing: "ease-in-out" });
   });
 });
