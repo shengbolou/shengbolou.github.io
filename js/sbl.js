@@ -1,3 +1,11 @@
+$.fn.isInViewport = function() {
+  var elementTop = $(this).offset().top;
+  var elementBottom = elementTop + $(this).outerHeight();
+  var viewportTop = $(window).scrollTop();
+  var viewportBottom = viewportTop + $(window).height();
+  return elementBottom > viewportTop && elementTop < viewportBottom;
+};
+
 $(document).ready(function(){
 
   $.material.init();
@@ -122,20 +130,7 @@ $(document).ready(function(){
 
   $(window).scroll(function(){
 
-
-    if($(this).scrollTop() >= mine+400){
-      if(!$('.side-nav').is(':visible')){
-        $('.side-nav').stop().velocity("transition.fadeIn",{duration:200});
-      }
-    }
-    if($(this).scrollTop() < mine+400){
-      if($('.side-nav').is(':visible')){
-        $('.side-nav').stop().velocity("transition.fadeOut",{duration:200});
-      }
-    }
-
-
-    if($(this).scrollTop() >= mine){
+    if($('.mine').isInViewport()){
       $('.side-nav li a').removeClass("active");
       $('.side-nav li:nth-child(1) a').addClass("active");
       $('.mine').velocity({
@@ -143,7 +138,8 @@ $(document).ready(function(){
         opacity: 1
       },300);
     }
-    if($(this).scrollTop() >= time_line){
+
+    if($('.time-line').isInViewport()){
       $('.side-nav li a').removeClass("active");
       $('.side-nav li:nth-child(2) a').addClass("active");
       $('.time-line').velocity({
@@ -152,7 +148,7 @@ $(document).ready(function(){
       },300);
     }
 
-    if($(this).scrollTop() >= life){
+    if($('.life').isInViewport()){
       $('.side-nav li a').removeClass("active");
       $('.side-nav li:nth-child(3) a').addClass("active");
       $('.life')
@@ -161,7 +157,7 @@ $(document).ready(function(){
         opacity: 1
       },300);
     }
-    if($(this).scrollTop() >= work){
+    if($('.work').isInViewport()){
       $('.side-nav li a').removeClass("active");
       $('.side-nav li:nth-child(4) a').addClass("active");
       $('.work')
@@ -205,11 +201,10 @@ $(document).ready(function(){
 
 
   $(window).scroll(function(){
-    if($(this).scrollTop() >= 150 && !$('.navbar').is(':visible')){
+    if($('.mine').isInViewport() && !$('.navbar').is(':visible')){
       $('.navbar').velocity('transition.slideDownIn',200);
     }
     if($(this).scrollTop() == 0){
-      //scroll to top
       $('.navbar').velocity('transition.slideUpOut',200);
     }
   });
@@ -252,31 +247,34 @@ $(document).ready(function(){
 
 
   $('.downward').click(function(){
-    $('html').velocity("scroll",{easing: [.53,.21,.29,.95],duration: 500, offset:mine+500}).stop();
+    $('html').velocity("scroll",{easing: [.53,.21,.29,.95],duration: 500, offset:$('.mine').offset().top-100}).stop();
   });
+
   $('.side-nav li:nth-child(1)').click(function(){
-    $('html').velocity("scroll", { duration: 500, offset:mine+500}).stop();
+    $('html').velocity("scroll", { duration: 500, offset:$('.mine').offset().top-100}).stop();
   });
 
   $('.side-nav li:nth-child(2)').click(function(){
-    $('html').velocity("scroll", { duration: 500,offset:time_line+500 }).stop();
+    $('html').velocity("scroll", { duration: 500,offset:$('.time-line').offset().top-100 }).stop();
   });
+
   $('.downward2').click(function(){
-    $('html').velocity("scroll", { duration: 500,offset:time_line+500 }).stop();
+    $('html').velocity("scroll", { duration: 500,offset:$('.time-line').offset().top-100}).stop();
   });
 
   $('.downward3').click(function(){
-    $('html').velocity("scroll", { duration: 500,offset:work+500 }).stop();
+    $('html').velocity("scroll", { duration: 500,offset:$('.work').offset().top-100}).stop();
   });
   $('.side-nav li:nth-child(4)').click(function(){
-    $('html').velocity("scroll", { duration: 500,offset:work+500 }).stop();
+    $('html').velocity("scroll", { duration: 500,offset:$('.work').offset().top-100}).stop();
   });
 
   $('.downward4').click(function(){
-    $('html').velocity("scroll", { duration: 500,offset:life+500 }).stop();
+    $('html').velocity("scroll", { duration: 500,offset:$('.life').offset().top-100}).stop();
   });
   $('.side-nav li:nth-child(3)').click(function(){
-    $('html').velocity("scroll", { duration: 500,offset:life+500 }).stop();
+    $('html').velocity("scroll", { duration: 500,offset:$('.life').offset().top-100}).stop();
   });
   $('#success').hide();
+  
 });
