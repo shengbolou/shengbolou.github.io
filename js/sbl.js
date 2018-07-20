@@ -129,6 +129,11 @@ $(document).ready(function(){
   },10);
 
   $(window).scroll(function(){
+    if($('.mine').isInViewport() && $('.side-nav').css('opacity')==0){
+      $('.side-nav').velocity({
+        opacity: 1
+      },0);
+    }
 
     if($('.mine').isInViewport()){
       $('.side-nav li a').removeClass("active");
@@ -276,5 +281,5 @@ $(document).ready(function(){
     $('html').velocity("scroll", { duration: 500,offset:$('.life').offset().top-100}).stop();
   });
   $('#success').hide();
-  
+
 });
