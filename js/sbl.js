@@ -129,10 +129,10 @@ $(document).ready(function(){
   },10);
 
   $(window).scroll(function(){
-    if($('.mine').isInViewport() && $('.side-nav').css('opacity')==0){
+    if($('.side-nav').offset().top > myHeight && $('.side-nav').css('opacity')==0){
       $('.side-nav').velocity({
         opacity: 1
-      },0);
+      },300);
     }
 
     if($('.mine').isInViewport()){
